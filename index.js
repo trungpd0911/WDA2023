@@ -18,7 +18,7 @@ connectDb();
 
 
 app.use('/v1', require('./src/api/routes'));
-const port = 8000;
+const port = 3000;
 
 app.listen(port, () => {
     console.log(`Server started on http:localhost:${port}`);

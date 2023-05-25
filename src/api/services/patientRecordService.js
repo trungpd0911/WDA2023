@@ -52,6 +52,66 @@ module.exports = {
                 data: null,
             }
         }
-
+    },
+    getAllPatientRecord: async () => {
+        const patientRecord = await PatientRecord.find();
+        return {
+            message: "get all patient record successfully",
+            statuscode: 200,
+            data: patientRecord,
+        }
+    },
+    updatePatientRecord: async (id, data) => {
+        try {
+            const patientRecord = await PatientRecord.findById(id);
+            if (!patientRecord) {
+                return {
+                    message: "patient record not found",
+                    statuscode: 404,
+                    data: null,
+                }
+            }
+            patientRecord.userID = data.userID;
+            patientRecord.name = data.name;
+            patientRecord.age = data.age;
+            patientRecord.CID = data.CID;
+            patientRecord.healthInsurance = data.healthInsurance;
+            await patientRecord.save();
+            return {
+                message: "update patient record successfully",
+                statuscode: 200,
+                data: patientRecord,
+            }
+        } catch (error) {
+            return {
+                message: error.message,
+                statuscode: 500,
+                data: null,
+            }
+        }
+    },
+    deletePatientRecord: async (id) => {
+        try {
+            const patientRecord = await PatientRecord.findById(id);
+            if (!patientRecord) {
+                return {
+                    message: "patient record not found",
+                    statuscode: 404,
+                    data: null,
+                }
+            }
+            await PatientRecord.findByIdAndDelete(id);
+            return {
+                message: "delete patient record successfully",
+                statuscode: 200,
+                data: patientRecord,
+            }
+        } catch (error) {
+            return {
+                message: error.message,
+                statuscode: 500,
+                data: null,
+            }
+        }
     },
 }

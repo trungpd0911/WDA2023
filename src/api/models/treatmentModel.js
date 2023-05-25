@@ -5,7 +5,6 @@ const treatmentSchema = mongoose.Schema(
         userID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-            unique: true,
         },
         treatmentDay: {
             type: Date,
