@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 
 const prescriptionSchema = mongoose.Schema(
     {
+        userID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            unique: true,
+        },
         prescriptionDay: {
             type: Date,
             required: true,

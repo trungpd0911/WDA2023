@@ -4,7 +4,12 @@ const patientRecordSchema = mongoose.Schema(
     {
         userID: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: "User",
+            unique: true,
+        },
+        avatar: {
+            type: String,
+            default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
         },
         name: {
             type: String,
@@ -15,7 +20,8 @@ const patientRecordSchema = mongoose.Schema(
         },
         CID: {
             type: String,
-            required: true
+            required: true,
+            unique: true,
         },
         healthInsurance: {
             type: String,

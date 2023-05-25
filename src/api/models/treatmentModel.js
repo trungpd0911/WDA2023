@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 
 const treatmentSchema = mongoose.Schema(
     {
+        userID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            unique: true,
+        },
         treatmentDay: {
             type: Date,
             required: true,
@@ -18,10 +23,10 @@ const treatmentSchema = mongoose.Schema(
             type: Boolean,
             default: false
         },
-        patientRecordID: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "PatientRecord"
-        },
+        // patientRecordID: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: "PatientRecord"
+        // },
     },
     {
         timestamps: true

@@ -7,9 +7,8 @@ const PrescriptionRoute = require('./prescriptionRoute')
 
 router.use('/auth', authRoute);
 router.use('/user', userRoute);
-// router.use('/patientRecord', patientRecordRoute);
-// router.use('/treatment', treatmentRoute);
-// router.use('/prescription', PrescriptionRoute);
-// router.use('')
+router.use('/patientRecord', patientRecordRoute);
+router.use('/treatment', treatmentRoute);
+router.use('/prescription', PrescriptionRoute);
 
 module.exports = router;
