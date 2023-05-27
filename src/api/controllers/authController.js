@@ -60,10 +60,10 @@ authController = {
 
     login: async (req, res) => {
         try {
-            if (!req.body.username || !req.body.password) {
+            if (!req.body.phone || !req.body.password) {
                 return res.status(400).json("missing username or password");
             }
-            const user = await User.findOne({ username: req.body.username });
+            const user = await User.findOne({ phone: req.body.phone });
             if (!user) {
                 return res.status(404).json("wrong password or username");
             }
