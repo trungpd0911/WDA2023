@@ -49,23 +49,23 @@ module.exports = {
 
     getAllTreatmentsOfPatient: async (id) => {
         try {
-            const treatmentOfPatient = Treatment.find({ userID: id });
-            if (!treatmentOfPatient) {
-                return {
-                    message: "treatment of patient not found",
+            const treatments = await Treatment.find({ userID: id });
+            if (!treatments)
+                return ({
+                    message: "treatments not found",
                     statuscode: 404,
                     data: null,
+                })
+            else {
+                return {
+                    message: "get all treatments successfully",
+                    statuscode: 200,
+                    data: treatments,
                 }
             }
+        } catch (err) {
             return {
-                message: "get treatment of patient successfully",
-                statuscode: 200,
-                data: treatmentOfPatient,
-            }
-        }
-        catch (error) {
-            return {
-                message: error.message,
+                message: err.message,
                 statuscode: 500,
                 data: null,
             }
