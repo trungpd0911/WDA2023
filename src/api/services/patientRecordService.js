@@ -32,7 +32,7 @@ module.exports = {
     },
     getPatientRecord: async (id) => {
         try {
-            const patientRecord = await PatientRecord.findById(id);
+            const patientRecord = await PatientRecord.findOne({ userID: id });
             if (!patientRecord) {
                 return {
                     message: "patient record not found",

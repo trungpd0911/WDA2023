@@ -11,6 +11,10 @@ authController = {
             if (!req.body.username || !req.body.password || !req.body.phone) {
                 return res.status(400).json("missing username or password or phone");
             }
+            //check phone number exists
+            if (req.body.phone.length < 10 || req.body.phone.length > 11) {
+                return res.status(400).json("phone number must be 10 or 11 digits");
+            }
             const checkUser = await User.findOne({ phone: req.body.phone });
             if (checkUser) {
                 return res.status(400).json("phone number already exists");
