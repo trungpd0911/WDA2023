@@ -110,25 +110,55 @@ module.exports = {
             }
         }
     },
-    searchByDay: async (query) => {
+    searchByDay: async (id, query) => {
         try {
-            const prescriptions = await Prescription.find({
-                $or: [
-                    { prescriptionDay: { $gte: query.from, $lte: query.to } },
-                ]
+            const prescription = await Prescription.find({ userID: id });
+            if (!prescription) return {
+                message: "prescription not found",
+                statuscode: 404,
+                data: null,
+            }
+            // search by day
+            const searchPrescriptions = await Prescription.find({
+                userID: id,
+                // prescriptionDay: {
+                //     $regex: query.prescriptionDay,
+                //     $options: '$i'
+                // }
+                prescriptionDay: query.prescriptionDay
             });
-            if (!prescriptions)
-                return ({
-                    message: "prescriptions not found",
-                    statuscode: 404,
-                    data: null,
-                })
-            else {
-                return {
-                    message: "get all prescriptions successfully",
-                    statuscode: 200,
-                    data: prescriptions,
-                }
+            if (!searchPrescriptions) return ({
+                message: "this day don't have any prescription",
+                statuscode: 404,
+                data: null,
+            })
+            return {
+                message: "search Prescription successfully",
+                statuscode: 200,
+                data: searchPrescriptions,
+            }
+        } catch (err) {
+            return {
+                message: err.message,
+                statuscode: 500,
+                data: null,
+            }
+        }
+    },
+    sortByDay: async (id, sort, query) => {
+        const prescription = await Prescription.find({ userID: id });
+        if (!prescription) return {
+            message: "prescription not found",
+            statuscode: 404,
+            data: null,
+        }
+        try {
+            // sort by day (sort = 1 => asc, sort = -1 => desc)
+            const prescriptions = await Prescription.find({ userID: id }).sort({ prescriptionDay: sort });
+            return {
+                message: "sort prescriptions successfully",
+                statuscode: 200,
+                data: prescriptions,
             }
         } catch (err) {
             return {

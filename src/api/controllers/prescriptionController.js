@@ -22,7 +22,14 @@ module.exports = {
         res.status(response.statuscode).json(response);
     },
     searchByDay: async (req, res) => {
-        const response = await prescriptionService.searchByDay(req.query);
+        const id = req.params.id;
+        const response = await prescriptionService.searchByDay(id, req.query);
+        res.status(response.statuscode).json(response);
+    },
+    sortByDay: async (req, res) => {
+        const id = req.params.id;
+        const sort = req.query.sort;
+        const response = await prescriptionService.sortByDay(id, sort, req.query);
         res.status(response.statuscode).json(response);
     }
 }

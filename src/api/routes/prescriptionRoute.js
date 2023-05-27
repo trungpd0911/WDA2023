@@ -8,6 +8,8 @@ router.get('/all/:id', middlewareController.verifyTokenAndAdminAuth, prescriptio
 router.put('/:id', middlewareController.verifyAdminAuth, prescriptionController.updatePrescription);
 router.delete('/:id', middlewareController.verifyAdminAuth, prescriptionController.deletePrescription);
 // search
-router.get('/search', middlewareController.verifyToken, prescriptionController.searchByDay);
+router.get('/search/:id', middlewareController.verifyTokenAndAdminAuth, prescriptionController.searchByDay);
+// sort 
+router.get('/sort/:id', middlewareController.verifyTokenAndAdminAuth, prescriptionController.sortByDay);
 
 module.exports = router;
