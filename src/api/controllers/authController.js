@@ -8,6 +8,9 @@ let refreshTokens = [];
 authController = {
     register: async (req, res) => {
         try {
+            if (!req.body.username || !req.body.password || !req.body.phone) {
+                return res.status(400).json("missing username or password or phone");
+            }
             const checkUser = await User.findOne({ phone: req.body.phone });
             if (checkUser) {
                 return res.status(400).json("phone number already exists");
@@ -57,6 +60,9 @@ authController = {
 
     login: async (req, res) => {
         try {
+            if (!req.body.username || !req.body.password) {
+                return res.status(400).json("missing username or password");
+            }
             const user = await User.findOne({ username: req.body.username });
             if (!user) {
                 return res.status(404).json("wrong password or username");
