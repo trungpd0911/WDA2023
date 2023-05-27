@@ -13,6 +13,10 @@ module.exports = {
         const response = await treatmentService.getAllTreatments(req.params.userId);
         res.status(response.statuscode).json(response);
     },
+    getAllTreatmentsOfPatient: async (req, res) => {
+        const response = await treatmentService.getAllTreatmentsOfPatient(req.params.id);
+        res.status(response.statuscode).json(response);
+    },
     updateTreatment: async (req, res) => {
         const response = await treatmentService.updateTreatment(req.params.id, req.body);
         res.status(response.statuscode).json(response);

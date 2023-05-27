@@ -46,6 +46,32 @@ module.exports = {
             data: treatment,
         }
     },
+
+    getAllTreatmentsOfPatient: async (id) => {
+        try {
+            const treatmentOfPatient = Treatment.find({ userID: id });
+            if (!treatmentOfPatient) {
+                return {
+                    message: "treatment of patient not found",
+                    statuscode: 404,
+                    data: null,
+                }
+            }
+            return {
+                message: "get treatment of patient successfully",
+                statuscode: 200,
+                data: treatmentOfPatient,
+            }
+        }
+        catch (error) {
+            return {
+                message: error.message,
+                statuscode: 500,
+                data: null,
+            }
+        }
+    },
+
     updateTreatment: async (id, body) => {
         const treatment = await Treatment.findById(id);
         if (!treatment) {
